@@ -24,14 +24,27 @@ Build images:
 docker compose build
 ```
 
-Create databases:
+### Database
+
+> If this is the first time running the app, run all following commands.
+
+#### Create the database
 ```shell
 docker compose run --rm api bin/rails db:create
+```
+
+#### Running migrations
+```shell
 docker compose run --rm api bin/rails db:migrate
+```
+
+#### Adding data
+```shell
 docker compose run --rm api bin/rails db:seed
 ```
 
-Run containers:
+## Running the app
+
 ```shell
 docker compose up
 ```
