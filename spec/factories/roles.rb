@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :role do
-    name { 'MyString' }
+    name { Faker::Job.title }
   end
 end

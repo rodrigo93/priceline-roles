@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    name { 'John Snow' }
-    identifier { '1234' }
+    name       { Faker::Name.name }
+    identifier { Faker::IDNumber.unique.valid }
   end
 end
