@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class Api::RolesController < ApplicationController
-  # TODO:
-  # - [] implement
-  # - [] Add pagination
-  def index; end
+  def index
+    @roles = Role.page(params[:page]).per(params[:per])
+
+    render json: @roles, status: :ok
+  end
 
   def show
     @role = Role.find(params[:id])
