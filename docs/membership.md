@@ -21,7 +21,7 @@ classDiagram
     Membership --> Role
     class User{
       +String name
-      +String identifier
+      +String email
     }
     class Team{
       +String name
