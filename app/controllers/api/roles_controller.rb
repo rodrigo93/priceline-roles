@@ -6,8 +6,11 @@ class Api::RolesController < ApplicationController
   # - [] Add pagination
   def index; end
 
-  # TODO: implement
-  def show; end
+  def show
+    @role = Role.find(params[:id])
+
+    render json: @role, status: :ok
+  end
 
   def create
     @role = Role.create!(role_params)

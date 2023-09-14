@@ -28,4 +28,37 @@ RSpec.describe Api::RolesController, type: :controller do
       end
     end
   end
+
+  describe 'GET /show' do
+    subject { get :show, params: role_params, format: :json }
+
+    context 'when the role exists' do
+      let(:role) { FactoryBot.create(:role) }
+      let(:role_params) do
+        { id: role.id }
+      end
+
+      it 'returns a role' do
+        subject
+
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body['name']).to eq(role.name)
+      end
+    end
+
+    context 'when the role does not exist' do
+      let(:role_params) do
+        { id: 999 }
+      end
+
+      it 'returns not found with an error message' do
+        subject
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body).to eq(
+          { 'error' => "Couldn't find Role with 'id'=#{role_params[:id]}" }
+        )
+      end
+    end
+  end
 end
