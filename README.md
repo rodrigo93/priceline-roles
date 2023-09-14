@@ -24,14 +24,28 @@ Build images:
 docker compose build
 ```
 
-Create databases:
+### Database
+
+> If this is the first time running the app, run all following commands.
+
+#### Create the database
 ```shell
 docker compose run --rm api bin/rails db:create
+```
+
+#### Running migrations
+```shell
 docker compose run --rm api bin/rails db:migrate
+docker compose run --rm api bin/rails db:migrate RAILS_ENV=test
+```
+
+#### Adding data
+```shell
 docker compose run --rm api bin/rails db:seed
 ```
 
-Run containers:
+## Running the app
+
 ```shell
 docker compose up
 ```
@@ -39,20 +53,17 @@ docker compose up
 ## Testing
 
 Testing the application is pretty simple, it uses Rspec and you can run the
-tests with the following command:
+tests with docker:
+
+```shell
+docker compose run --rm api bundle exec rspec
+```
+
+Or, if you have everything set locally:
 
 ```shell
 bundle exec rspec
 ```
-
-If that doesn't work, make sure you have all dependencies install before running
-the tests. So don't forget to run:
-
-```shell
-bundle install
-```
-
-Running specs in containers are not advised.
 
 ## Accessing the app
 
