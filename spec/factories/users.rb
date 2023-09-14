@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    name { 'MyString' }
-    identifier { 'MyString' }
+    name { "John Snow" }
+    identifier { '1234' }
   end
 end
