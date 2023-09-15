@@ -19,6 +19,9 @@ class Api::RolesController < ApplicationController
     render json: @role, status: :created
   end
 
+  # TODO: Look up memberships for a role
+  def memberships; end
+
   private
 
   def role_params
