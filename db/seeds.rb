@@ -28,7 +28,7 @@ memberships = [
   { user_id: SecureRandom.uuid, team_id: team_ids.sample, role_id: roles_ids.sample },
   { user_id: SecureRandom.uuid, team_id: team_ids.sample, role_id: roles_ids.sample },
   { user_id: SecureRandom.uuid, team_id: team_ids.sample, role_id: roles_ids.sample },
-  { user_id: SecureRandom.uuid, team_id: team_ids.sample, role_id: roles_ids.sample },
+  { user_id: SecureRandom.uuid, team_id: team_ids.sample, role_id: roles_ids.sample }
 ]
 
 Membership.create(memberships)
