@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :membership do
-    user
-    team
     role
+    team_id { SecureRandom.uuid }
+    user_id { SecureRandom.uuid }
   end
 end
