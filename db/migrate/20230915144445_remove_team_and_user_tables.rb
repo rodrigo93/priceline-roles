@@ -2,6 +2,12 @@
 
 class RemoveTeamAndUserTables < ActiveRecord::Migration[7.0]
   def up
+    change_table :memberships, bulk: true do |_|
+      # Remove foreign keys
+      remove_reference :memberships, :team, foreign_key: true
+      remove_reference :memberships, :user, foreign_key: true
+    end
+
     drop_table :teams
     drop_table :users
   end
