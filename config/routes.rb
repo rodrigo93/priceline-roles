@@ -10,6 +10,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :roles, only: %i[index show create]
+    resources :roles, only: %i[index show create] do
+      member do
+        get :memberships
+      end
+    end
   end
 end
