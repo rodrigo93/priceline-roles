@@ -20,17 +20,26 @@ classDiagram
     Membership --> Team
     Membership --> Role
     class User{
-      +String name
-      +String email
+      +String id
+      +String firstName
+      +String lastName
+      +String displayName
+      +String avatarUrl
+      +String location
     }
-    class Team{
+    class Team{ 
+      +String id
       +String name
-      +List~Membership~ memberships
-      +team_lead() : User
+      +String teamLeadId
+      +List~String~ teamMemberIds
     }
     class Role{
+      +String id
       +String name
     }
-    class Membership {
+    class Membership { 
+      +String user_id
+      +String team_id
+      +String role_id
     }
 ```

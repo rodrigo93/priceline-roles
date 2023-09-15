@@ -1,0 +1,11 @@
+// User sample from
+// https://cgjresszgg.execute-api.eu-west-1.amazonaws.com/users/fd282131-d8aa-4819-b0c8-d9e0bfb1b75c
+
+{
+  "id": "fd282131-d8aa-4819-b0c8-d9e0bfb1b75c",
+  "firstName": "Gianni",
+  "lastName": "Wehner",
+  "displayName": "gianniWehner",
+  "avatarUrl": "https://cdn.fakercloud.com/avatars/rude_128.jpg",
+  "location": "Brakusstad"
+}

@@ -5,6 +5,9 @@ This service is responsible for managing the roles of the users.
 It enhances the `Users` and `Teams` services, by giving us the concept of team
 roles and  the ability to associate them with team members.
 
+> Note: This service doesn't hold any **Team** or **User** table as they are
+> managed by their respective services.
+
 ## Stack
 
 - Ruby on Rails 7.0 (API mode)
