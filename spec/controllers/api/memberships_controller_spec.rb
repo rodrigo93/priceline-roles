@@ -7,12 +7,12 @@ RSpec.describe Api::MembershipsController, type: :controller do
     subject { post :create, params: { membership: membership_params }, format: :json }
 
     context 'with valid params' do
-      let(:role) { create :role }
+      let(:role_id) { create(:role).id }
       let(:membership_params) do
         {
           user_id: 'fd282131-d8aa-4819-b0c8-d9e0bfb1b75c',
           team_id: '7676a4bf-adfe-415c-941b-1739af07039b',
-          role_id: role.id
+          role_id:
         }
       end
 
@@ -22,7 +22,20 @@ RSpec.describe Api::MembershipsController, type: :controller do
         expect(response).to have_http_status(:created)
         expect(response.parsed_body['user_id']).to eq 'fd282131-d8aa-4819-b0c8-d9e0bfb1b75c'
         expect(response.parsed_body['team_id']).to eq '7676a4bf-adfe-415c-941b-1739af07039b'
-        expect(response.parsed_body['role_id']).to eq role.id
+        expect(response.parsed_body['role_id']).to eq role_id
+      end
+
+      context 'when the role_id is not informed' do
+        let(:membership_params) { super().except(:role_id) }
+
+        it 'creates a new membership with the default role' do
+          subject
+
+          expect(response).to have_http_status(:created)
+          expect(response.parsed_body['user_id']).to eq 'fd282131-d8aa-4819-b0c8-d9e0bfb1b75c'
+          expect(response.parsed_body['team_id']).to eq '7676a4bf-adfe-415c-941b-1739af07039b'
+          expect(response.parsed_body['role_id']).to eq Role.default.id
+        end
       end
     end
 
@@ -34,7 +47,7 @@ RSpec.describe Api::MembershipsController, type: :controller do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.parsed_body['error']).to eq(
-          "Validation failed: Role must exist, Team can't be blank, User can't be blank"
+          "Validation failed: Team can't be blank, User can't be blank"
         )
       end
     end

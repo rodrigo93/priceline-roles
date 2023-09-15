@@ -8,6 +8,8 @@ class Api::MembershipsController < ApplicationController
   end
 
   def create
+    params[:membership][:role_id] ||= Role.default.id
+
     @membership = Membership.create!(membership_params)
 
     render json: @membership, status: :created
