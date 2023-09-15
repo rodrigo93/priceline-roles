@@ -97,4 +97,29 @@ RSpec.describe Api::MembershipsController, type: :controller do
       end
     end
   end
+
+  describe 'GET /role' do
+    subject { get :role, params: { id: membership_id }, format: :json }
+
+    let(:membership)    { create :membership }
+    let(:membership_id) { membership.id }
+
+    it 'returns the role' do
+      subject
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['name']).to eq membership.role.name
+    end
+
+    context 'when the membership does not exist' do
+      let(:membership_id) { 890 }
+
+      it 'returns not found with an error message' do
+        subject
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body['error']).to eq("Couldn't find Membership with 'id'=890")
+      end
+    end
+  end
 end

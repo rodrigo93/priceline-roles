@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Api::MembershipsController < ApplicationController
-  def show
-    @membership = Membership.find(params[:id])
+  before_action :set_membership, only: %i[show role]
 
+  def show
     render json: @membership, status: :ok
   end
 
@@ -13,7 +13,15 @@ class Api::MembershipsController < ApplicationController
     render json: @membership, status: :created
   end
 
+  def role
+    render json: @membership.role, status: :ok
+  end
+
   private
+
+  def set_membership
+    @membership = Membership.find(params[:id])
+  end
 
   def membership_params
     params.require(:membership).permit(:user_id, :role_id, :team_id)
