@@ -28,7 +28,7 @@ paths:
       - Memberships
       parameters: []
       responses:
-        '200':
+        '201':
           description: Membership created
         '422':
           description: Membership not created due to invalid attributes or error
@@ -109,7 +109,7 @@ paths:
       - Roles
       parameters: []
       responses:
-        '200':
+        '201':
           description: successful
       requestBody:
         content:
@@ -117,13 +117,7 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
                 name:
-                  type: string
-                created_at:
-                  type: string
-                updated_at:
                   type: string
               required:
               - name

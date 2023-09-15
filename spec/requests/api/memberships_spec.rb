@@ -11,7 +11,7 @@ RSpec.describe 'api/memberships', type: :request do
       produces 'application/json'
 
       response(200, 'Membership found') do
-        let(:id) { '123' }
+        let!(:id) { create(:membership).id }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -54,7 +54,9 @@ RSpec.describe 'api/memberships', type: :request do
         required: %w[role_id user_id team_id]
       }
 
-      response(200, 'Membership created') do
+      response(201, 'Membership created') do
+        let!(:membership) { build(:membership) }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -66,6 +68,8 @@ RSpec.describe 'api/memberships', type: :request do
       end
 
       response(422, 'Membership not created due to invalid attributes or error') do
+        let(:membership) { { team_id: nil } }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -86,7 +90,7 @@ RSpec.describe 'api/memberships', type: :request do
       produces 'application/json'
 
       response(200, 'Membership found') do
-        let(:id) { '123' }
+        let!(:id) { create(:membership).id }
 
         after do |example|
           example.metadata[:response][:content] = {

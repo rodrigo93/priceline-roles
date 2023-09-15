@@ -11,7 +11,7 @@ RSpec.describe 'api/roles', type: :request do
       produces 'application/json'
 
       response(200, 'Returns related membership') do
-        let(:id) { '123' }
+        let(:id) { create(:role).id }
 
         after do |example|
           example.metadata[:response][:content] = {
@@ -46,6 +46,8 @@ RSpec.describe 'api/roles', type: :request do
       parameter name: :per, in: :query, type: :integer, description: 'Items per page', required: false
 
       response(200, 'successful') do
+        let!(:roles) { create_list(:role, 3) }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -69,7 +71,9 @@ RSpec.describe 'api/roles', type: :request do
         required: ['name']
       }
 
-      response(200, 'successful') do
+      response(201, 'successful') do
+        let(:role) { build :role }
+
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
