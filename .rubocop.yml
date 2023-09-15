@@ -9,6 +9,8 @@ Metrics/BlockLength:
     - spec/**/*
 
 # Styles
+Style/ClassAndModuleChildren:
+  Enabled: false
 Style/Documentation:
   Enabled: false
 Style/BlockComments:
