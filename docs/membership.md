@@ -8,7 +8,7 @@ and has a specific `role` in it.
 ```mermaid
 erDiagram
     role ||--o{ membership : has
-    team ||--|{ membership : has
+    team ||--o{ membership : has
     user ||--o{ membership : has
 ```
 
