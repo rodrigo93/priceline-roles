@@ -33,8 +33,8 @@ RSpec.describe Api::MembershipsController, type: :controller do
         subject
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.parsed_body).to eq(
-          { 'error' => "Validation failed: Role must exist, Team can't be blank, User can't be blank" }
+        expect(response.parsed_body['error']).to eq(
+          "Validation failed: Role must exist, Team can't be blank, User can't be blank"
         )
       end
     end
@@ -46,7 +46,7 @@ RSpec.describe Api::MembershipsController, type: :controller do
         subject
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.parsed_body).to eq({ 'error' => 'Validation failed: Role must exist' })
+        expect(response.parsed_body['error']).to eq('Validation failed: Role must exist')
       end
     end
 
@@ -66,9 +66,34 @@ RSpec.describe Api::MembershipsController, type: :controller do
         subject
 
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.parsed_body).to eq(
-          { 'error' => 'Validation failed: User has already been assigned to this team' }
-        )
+        expect(response.parsed_body['error']).to eq('Validation failed: User has already been assigned to this team')
+      end
+    end
+  end
+
+  describe 'GET /show' do
+    subject { get :show, params: { id: membership_id }, format: :json }
+
+    let(:membership)    { create :membership }
+    let(:membership_id) { membership.id }
+
+    it 'returns the membership' do
+      subject
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['user_id']).to eq membership.user_id
+      expect(response.parsed_body['team_id']).to eq membership.team_id
+      expect(response.parsed_body['role_id']).to eq membership.role_id
+    end
+
+    context 'when the membership does not exist' do
+      let(:membership_id) { 123 }
+
+      it 'returns not found with an error message' do
+        subject
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body['error']).to eq("Couldn't find Membership with 'id'=123")
       end
     end
   end

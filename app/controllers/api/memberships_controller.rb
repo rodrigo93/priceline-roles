@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Api::MembershipsController < ApplicationController
-  def show; end
+  def show
+    @membership = Membership.find(params[:id])
+
+    render json: @membership, status: :ok
+  end
 
   def create
     @membership = Membership.create!(membership_params)
